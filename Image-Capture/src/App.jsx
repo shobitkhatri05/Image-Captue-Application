@@ -1,14 +1,21 @@
-import "./App.css";
-import ImageCapture from "./components/imageCapture";
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import Camera from "./Camera";
+import Gallery from "./Gallery";
 
-// eslint-disable-next-line no-unused-vars
+const App = () => {
+  const [storage, setPhotoStorage] = React.useState([]);
 
-function App() {
+  const pushToGallery = (photo) => {
+    setPhotoStorage((pre) => [...pre, photo]);
+  };
+
   return (
-    <>
-      <ImageCapture />
-    </>
+    <Routes>
+      <Route path="/" element={<Camera pushToGallery={pushToGallery} />} />
+      <Route path="gallery" element={<Gallery storage={storage} />} />
+    </Routes>
   );
-}
+};
 
 export default App;
